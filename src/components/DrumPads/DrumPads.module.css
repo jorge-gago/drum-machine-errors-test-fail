@@ -1,0 +1,12 @@
+.pad {
+    width: 7vh;
+    height: 7vh;
+    display: flex;
+    border-radius: 10%;
+    border: solid;
+    margin: 1%;
+    justify-content: center;
+    align-items: center;
+    font-size: 3em;
+    overflow: hidden;
+}
