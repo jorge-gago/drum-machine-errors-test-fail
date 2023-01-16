@@ -1,8 +1,8 @@
-import React from "react";
+import React, {useImperativeHandle, forwardRef} from "react";
 import Style from "./DrumPads.module.css"
 //import { useEffect, useState } from "react";
 
-export const Pad = ({ id = null, texto = 'place holder', audio = null, estado = false}) => {
+export const Pad = forwardRef(({ id = null, texto = 'place holder', audio = null, estado = false}, ref) => {
     //const [ activo, setActivo] = useState(estado)
 
     // useEffect(() => {
@@ -10,9 +10,9 @@ export const Pad = ({ id = null, texto = 'place holder', audio = null, estado = 
     //     audio.play() || console.log("effect ")
   
     // } ,[activo])
-    const useImperativeHandle = () => {
-        playSound()
-    }
+    useImperativeHandle(ref, () =>  {
+        return playSound()
+    })
 
     const clickHandler = () => {
         //return audio? audio.play() : console.log('no function')
@@ -30,4 +30,4 @@ export const Pad = ({ id = null, texto = 'place holder', audio = null, estado = 
             {texto}
         </ div>
     )
-}
+})

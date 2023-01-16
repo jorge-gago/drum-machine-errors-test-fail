@@ -5,8 +5,8 @@ import { useRef } from 'react';
 
 function App() {
 
-  const buttonsRefs = useRef([])
-  buttonsRefs.current = []
+  const buttonsRefs = useRef({})
+  buttonsRefs.current = {}
 
   const audios = (url = "#") => {
     let sound = new Audio(url)
@@ -16,13 +16,17 @@ function App() {
   const Handlerkey = (e) => {
     console.log('key')
     console.log(e.key.toUpperCase())
-    buttonsRefs.current.useImperativeHandle()
+    buttonsRefs.current[e.key.toUpperCase()].playHandle()
+    console.log(buttonsRefs.current)
   }
 
   const addButtonRefs = (ref) => {
-    // console.log(ref)
-    if (ref && !buttonsRefs.current.includes(ref)) {
-      buttonsRefs.current.push(ref)
+    console.log('add ', ref)
+    //console.log("ref ", ref.letra, ref)
+    if (ref && !buttonsRefs.current[ref.letra]) {
+      // buttonsRefs.current[ref.letra]
+      //buttonsRefs.current.push(ref)
+      buttonsRefs.current[ref.letra] = ref
     }
     console.log(buttonsRefs.current)
   }
@@ -33,7 +37,7 @@ function App() {
       {/* <Pad id={actions.pad1.letra} texto={actions.pad1.letra} audio={audios(actions.pad1.audio)}/> */}
       {actions.map(pad => {
         return(
-          <Pad key={pad.letra} id={pad.letra} texto={pad.letra} audio={audios(pad.audio)} ref={addButtonRefs(pad)}/>
+          <Pad key={pad.letra} id={pad.letra} texto={pad.letra} audio={audios(pad.audio)} ref={addButtonRefs}/>
         )
       })}
       <Display />
