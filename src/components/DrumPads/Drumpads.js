@@ -1,17 +1,18 @@
 import React, {useImperativeHandle, forwardRef} from "react";
 import Style from "./DrumPads.module.css"
-//import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 export const Pad = forwardRef(({ id = null, texto = 'place holder', audio = null, estado = false}, ref) => {
-    //const [ activo, setActivo] = useState(estado)
+    const [ activo, setActivo] = useState(estado)
 
-    // useEffect(() => {
-    //     console.log("inside")
-    //     audio.play() || console.log("effect ")
-  
-    // } ,[activo])
+    useEffect(() => {
+        console.log("inside ", id)
+        playSound()
+        setActivo(() => {return false})
+    } , [activo])
+
     useImperativeHandle(ref, () =>  {
-        return playSound()
+        return [setActivo, id]
     })
 
     const clickHandler = () => {
@@ -26,7 +27,7 @@ export const Pad = forwardRef(({ id = null, texto = 'place holder', audio = null
 
 
     return (
-        <div id = {id}  className = {`${Style.pad}`} onClick={() => clickHandler()}>
+        <div id = {id} className = {`${Style.pad} drum-pad` } onClick={() => clickHandler()}>
             {texto}
         </ div>
     )
